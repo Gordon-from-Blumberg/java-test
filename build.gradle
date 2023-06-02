@@ -33,6 +33,10 @@ sourceSets.test.java.srcDirs = [ "src/test/java" ]
 
 test {
     useJUnitPlatform()
+
+    minHeapSize = "1024m" // initial heap size
+    maxHeapSize = "2048m" // maximum heap size
+    jvmArgs '-XX:MaxPermSize=256m' // mem argument for the test JVM
 }
 
 dependencies {

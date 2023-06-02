@@ -120,6 +120,7 @@ public class BitwiseTest {
         printByte("m>>>4", m>>>4);
         printByte("all byte bits", ALL_BITS_BYTE);
         printByte("all bits>>>3", ALL_BITS_BYTE >>> 3);
+        printInt("all bits>>>3", ALL_BITS_INT >>> 3);
         printByte("(all bits>>>3)<<3", (ALL_BITS_BYTE >>> 3) << 3);
         printInt("all int bits", ALL_BITS_INT);
         printInt("all int bits >>> 4", ALL_BITS_INT >>> 4);
