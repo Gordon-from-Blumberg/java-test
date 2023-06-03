@@ -14,12 +14,28 @@ public class CollectionTest {
         measure(10, () -> addToEnd(new ArrayList<>(count), count));
 
         System.out.println();
-        System.out.println("Add to end: ArrayList with default");
+        System.out.println("Add to end: ArrayList without capacity");
         measure(10, () -> addToEnd(new ArrayList<>(), count));
 
         System.out.println();
         System.out.println("Add to end: LinkedList");
         measure(10, () -> addToEnd(new LinkedList<>(), count));
+
+        System.out.println();
+        System.out.println("Add to end: Vector without capacity");
+        measure(10, () -> addToEnd(new Vector<>(), count));
+
+        System.out.println();
+        System.out.println("Add to end: Vector with capacity");
+        measure(10, () -> addToEnd(new Vector<>(count), count));
+
+        System.out.println();
+        System.out.println("Add to end: ArrayDeque without capacity");
+        measure(10, () -> addToEnd(new ArrayDeque<>(), count));
+
+        System.out.println();
+        System.out.println("Add to end: ArrayDeque with capacity");
+        measure(10, () -> addToEnd(new ArrayDeque<>(count), count));
 
         System.out.println();
         System.out.println("Add to end: HashSet");
@@ -32,6 +48,31 @@ public class CollectionTest {
         System.out.println();
         System.out.println("Add to end: TreeSet");
         measure(10, () -> addToEnd(new TreeSet<>(), count));
+    }
+
+    @Test
+    void addToStartTest() {
+        final int count = 250_000;
+
+        System.out.println();
+        System.out.println("Add to start: ArrayList with capacity");
+        measure(10, () -> addToStart(new ArrayList<>(count), count));
+
+        System.out.println();
+        System.out.println("Add to start: ArrayList without capacity");
+        measure(10, () -> addToStart(new ArrayList<>(), count));
+
+        System.out.println();
+        System.out.println("Add to start: Vector with capacity");
+        measure(10, () -> addToStart(new Vector<>(count), count));
+
+        System.out.println();
+        System.out.println("Add to start: Vector without capacity");
+        measure(10, () -> addToStart(new Vector<>(), count));
+
+        System.out.println();
+        System.out.println("Add to start: LinkedList");
+        measure(10, () -> addToStart(new LinkedList<>(), count));
     }
 
     @Test
@@ -48,6 +89,14 @@ public class CollectionTest {
         System.out.println();
         System.out.println("Create from collection: LinkedList");
         measure(10, () -> new LinkedList<>(collection));
+
+        System.out.println();
+        System.out.println("Create from collection: Vector");
+        measure(10, () -> new Vector<>(collection));
+
+        System.out.println();
+        System.out.println("Create from collection: ArrayDeque");
+        measure(10, () -> new ArrayDeque<>(collection));
 
         System.out.println();
         System.out.println("Create from collection: HashSet");
@@ -81,11 +130,18 @@ public class CollectionTest {
         }
 
         System.out.println("MIN = " + min + "\tMAX = " + max + "\tAVG=" + ((float) sum / times));
+        System.gc();
     }
 
-    void addToEnd(Collection<Integer> collection, final int n) {
+    private void addToEnd(Collection<Integer> collection, final int n) {
         for (int i = 0; i < n; ++i) {
             collection.add(i);
+        }
+    }
+
+    private void addToStart(List<Integer> list, final int n) {
+        for (int i = 0; i < n; ++i) {
+            list.add(0, i);
         }
     }
 }
