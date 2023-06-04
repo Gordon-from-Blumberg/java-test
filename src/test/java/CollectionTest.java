@@ -157,7 +157,178 @@ public class CollectionTest {
         measure(10, () -> new TreeSet<>(collection));
     }
 
-    void measure(final int times, Runnable action) {
+    @Test
+    void containsEachTest() {
+        final int count = 100_000;
+        final ArrayList<Integer> arrayList = new ArrayList<>(count);
+        addToEnd(arrayList, count);
+        Collections.shuffle(arrayList);
+
+        System.out.println();
+        System.out.println("Contains each: ArrayList");
+        measure(5, () -> containsEach(arrayList, count));
+
+        final LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: LinkedList");
+        measure(5, () -> containsEach(linkedList, count));
+
+        final Vector<Integer> vector = new Vector<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: Vector");
+        measure(5, () -> containsEach(vector, count));
+
+        final ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: ArrayDeque");
+        measure(5, () -> containsEach(arrayDeque, count));
+
+        final HashSet<Integer> hashSet = new HashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: HashSet");
+        measure(10, () -> containsEach(hashSet, count));
+
+        final LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: LinkedHashSet");
+        measure(10, () -> containsEach(linkedHashSet, count));
+
+        final TreeSet<Integer> treeSet = new TreeSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains each: TreeSet");
+        measure(10, () -> containsEach(treeSet, count));
+    }
+
+    @Test
+    void containsAtEndTest() {
+        final int size = 100_000;
+        final int iterations = 50_000;
+        final int n = 99_990;
+        final ArrayList<Integer> arrayList = new ArrayList<>(size);
+        addToEnd(arrayList, size);
+
+        System.out.println();
+        System.out.println("Contains at end: ArrayList");
+        measure(5, () -> contains(arrayList, iterations, n));
+
+        final LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: LinkedList");
+        measure(5, () -> contains(linkedList, iterations, n));
+
+        final Vector<Integer> vector = new Vector<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: Vector");
+        measure(5, () -> contains(vector, iterations, n));
+
+        final ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: ArrayDeque");
+        measure(5, () -> contains(arrayDeque, iterations, n));
+
+        final HashSet<Integer> hashSet = new HashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: HashSet");
+        measure(10, () -> contains(hashSet, iterations, n));
+
+        final LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: LinkedHashSet");
+        measure(10, () -> contains(linkedHashSet, iterations, n));
+
+        final TreeSet<Integer> treeSet = new TreeSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at end: TreeSet");
+        measure(10, () -> contains(treeSet, iterations, n));
+    }
+
+    @Test
+    void containsAtStartTest() {
+        final int size = 100_000;
+        final int iterations = 300_000;
+        final int n = 10;
+        final ArrayList<Integer> arrayList = new ArrayList<>(size);
+        addToEnd(arrayList, size);
+
+        System.out.println();
+        System.out.println("Contains at start: ArrayList");
+        measure(10, () -> contains(arrayList, iterations, n));
+
+        final LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: LinkedList");
+        measure(10, () -> contains(linkedList, iterations, n));
+
+        final Vector<Integer> vector = new Vector<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: Vector");
+        measure(10, () -> contains(vector, iterations, n));
+
+        final ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: ArrayDeque");
+        measure(10, () -> contains(arrayDeque, iterations, n));
+
+        final HashSet<Integer> hashSet = new HashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: HashSet");
+        measure(10, () -> contains(hashSet, iterations, n));
+
+        final LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: LinkedHashSet");
+        measure(10, () -> contains(linkedHashSet, iterations, n));
+
+        final TreeSet<Integer> treeSet = new TreeSet<>(arrayList);
+        System.out.println();
+        System.out.println("Contains at start: TreeSet");
+        measure(10, () -> contains(treeSet, iterations, n));
+    }
+
+    @Test
+    void containsNotPresentTest() {
+        final int size = 100_000;
+        final int iterations = 50_000;
+        final int n = -1;
+        final ArrayList<Integer> arrayList = new ArrayList<>(size);
+        addToEnd(arrayList, size);
+
+        System.out.println();
+        System.out.println("contains not present: ArrayList");
+        measure(5, () -> contains(arrayList, iterations, n));
+
+        final LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: LinkedList");
+        measure(5, () -> contains(linkedList, iterations, n));
+
+        final Vector<Integer> vector = new Vector<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: Vector");
+        measure(5, () -> contains(vector, iterations, n));
+
+        final ArrayDeque<Integer> arrayDeque = new ArrayDeque<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: ArrayDeque");
+        measure(5, () -> contains(arrayDeque, iterations, n));
+
+        final HashSet<Integer> hashSet = new HashSet<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: HashSet");
+        measure(10, () -> contains(hashSet, iterations, n));
+
+        final LinkedHashSet<Integer> linkedHashSet = new LinkedHashSet<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: LinkedHashSet");
+        measure(10, () -> contains(linkedHashSet, iterations, n));
+
+        final TreeSet<Integer> treeSet = new TreeSet<>(arrayList);
+        System.out.println();
+        System.out.println("contains not present: TreeSet");
+        measure(10, () -> contains(treeSet, iterations, n));
+    }
+
+    void measure(final int times, final Runnable action) {
         final long[] res = new long[times];
 
         for (int i = 0; i < times; ++i) {
@@ -179,27 +350,38 @@ public class CollectionTest {
         System.gc();
     }
 
-    private void addToEnd(Collection<Integer> collection, final int n) {
+    private void addToEnd(final Collection<Integer> collection, final int n) {
         for (int i = 0; i < n; ++i) {
             collection.add(i);
         }
     }
 
-    private void addToStart(List<Integer> list, final int n) {
+    private void addToStart(final List<Integer> list, final int n) {
         for (int i = 0; i < n; ++i) {
             list.add(0, i);
         }
     }
     
-    private void addToCenter(List<Integer> list, final int n) {
+    private void addToCenter(final List<Integer> list, final int n) {
         for (int i = 0; i < n; ++i) {
             list.add(list.size() / 2, i);
         }
     }
 
-    private void getByIndex(List<Integer> list, final int n) {
+    private void getByIndex(final List<Integer> list, final int n) {
         for (int i = 0; i < n; ++i) {
             list.get(i);
         }
+    }
+
+    private void containsEach(final Collection<Integer> collection, final int n) {
+        for (int i = 0; i < n; ++i) {
+            collection.contains(i);
+        }
+    }
+
+    private void contains(final Collection<Integer> collection, final int iterations, final int n) {
+        for (int i = 0; i < iterations; ++i)
+            collection.contains(n);
     }
 }
