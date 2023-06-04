@@ -74,6 +74,52 @@ public class CollectionTest {
         System.out.println("Add to start: LinkedList");
         measure(10, () -> addToStart(new LinkedList<>(), count));
     }
+    
+    @Test
+    void addToCenterTest() {
+        final int count = 100_000;
+
+        System.out.println();
+        System.out.println("Add to center: ArrayList with capacity");
+        measure(10, () -> addToCenter(new ArrayList<>(count), count));
+
+        System.out.println();
+        System.out.println("Add to center: ArrayList without capacity");
+        measure(10, () -> addToCenter(new ArrayList<>(), count));
+
+        System.out.println();
+        System.out.println("Add to center: Vector with capacity");
+        measure(10, () -> addToCenter(new Vector<>(count), count));
+
+        System.out.println();
+        System.out.println("Add to center: Vector without capacity");
+        measure(10, () -> addToCenter(new Vector<>(), count));
+
+        System.out.println();
+        System.out.println("Add to center: LinkedList");
+        measure(10, () -> addToCenter(new LinkedList<>(), count));
+    }
+
+    @Test
+    void getByIndexTest() {
+        final int count = 100_000;
+        final ArrayList<Integer> arrayList = new ArrayList<>(count);
+        addToEnd(arrayList, count);
+
+        System.out.println();
+        System.out.println("Get by index: ArrayList");
+        measure(10, () -> getByIndex(arrayList, count));
+
+        final Vector<Integer> vector = new Vector<>(arrayList);
+        System.out.println();
+        System.out.println("Get by index: Vector");
+        measure(10, () -> getByIndex(vector, count));
+
+        final LinkedList<Integer> linkedList = new LinkedList<>(arrayList);
+        System.out.println();
+        System.out.println("Get by index: LinkedList");
+        measure(10, () -> getByIndex(linkedList, count));
+    }
 
     @Test
     void createFromCollectionTest() {
@@ -142,6 +188,18 @@ public class CollectionTest {
     private void addToStart(List<Integer> list, final int n) {
         for (int i = 0; i < n; ++i) {
             list.add(0, i);
+        }
+    }
+    
+    private void addToCenter(List<Integer> list, final int n) {
+        for (int i = 0; i < n; ++i) {
+            list.add(list.size() / 2, i);
+        }
+    }
+
+    private void getByIndex(List<Integer> list, final int n) {
+        for (int i = 0; i < n; ++i) {
+            list.get(i);
         }
     }
 }
